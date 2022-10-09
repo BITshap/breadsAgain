@@ -14,10 +14,11 @@ function New(){
             required
             />
             <label htmlFor='image'>Image</label>
-            <input 
-            type="text"
-            name="image"
-            id="image"/>
+            <input type="url" 
+            id="website" 
+            name="website"
+            pattern="https?://.+" 
+            title="Include http://"/>
             <input
             type="checkbox"
             name="hasGluten"
