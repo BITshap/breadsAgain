@@ -11,9 +11,18 @@ breads.get('/', (req,res) => {
     )
     //res.send(Bread)
 })
+
 breads.get('/new', (req, res) => {
     res.render('new')
 })
+
+breads.get('/:indexArray/edit', (req, res) => {
+    res.render('edit', {
+        bread: Bread[req.params.indexArray],
+        index: req.params.indexArray
+    })
+})
+
 breads.get('/:arrayIndex', (req,res) => {
     if (Bread[req.params.arrayIndex]) {
     res.render('Show', {
@@ -24,6 +33,8 @@ breads.get('/:arrayIndex', (req,res) => {
     res.render('404')
 }
 })
+
+
 
 breads.post('/', (req, res) => {
     console.log(req.body)
@@ -37,6 +48,16 @@ breads.post('/', (req, res) => {
     }
     Bread.push(req.body)
     res.redirect('/breads')
+})
+
+breads.put('/:arrayIndex', (req, res) => {
+    if(req.body.hasGluten === 'on') {
+        req.body.hasGluten = true
+    } else {
+        req.body.hasGluten = false
+    } 
+    Bread[req.params.arrayIndex] = req.body
+    res.redirect(`/breads/${req.params.arrayIndex}`)
 })
 
 breads.delete('/:indexArray', (req, res) => {
