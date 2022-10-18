@@ -32,7 +32,6 @@ function New(){
                 <a href="/breads"><button>Go back to index</button></a>
             </div>
         </Default>
-    
     )
 }
 
