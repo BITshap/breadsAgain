@@ -3,16 +3,16 @@ const Default = require('./layouts/Default')
 
 function Index({breads, title}){
     return(
-        <default title={title}>
+        <Default title={title}>
             <h2>Index Page</h2>
-            
             <ul>
                 {
                     breads.map((bread, index)=>{
                         return (<li key={index}>
                             <a href={`/breads/${bread.id}`}>
-                            {bread.name}
+                            <h2>{bread.name}</h2>
                             </a>
+                            <p>{bread.getBakedBy()}</p>
                         </li>)
                     })
                 }
@@ -20,7 +20,7 @@ function Index({breads, title}){
             <div className="newButton">
                 <a href="/breads/new"><button>Add a new bread</button></a>
             </div>
-        </default>
+        </Default>
     )
 }
 

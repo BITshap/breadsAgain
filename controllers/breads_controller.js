@@ -4,9 +4,9 @@ const Bread = require('../models/bread.js')
 
 breads.get('/', (req, res) => {
     Bread.find()
-        .then(foundBreads => {
+    .then(foundBread => {
             res.render('index', {
-                breads: foundBreads,
+                breads: foundBread,
                 title: 'Index Page'
             })
         })
@@ -28,6 +28,8 @@ breads.get('/:id/edit', (req, res) => {
 breads.get('/:id', (req,res) => {    //might be '/:arrayIndex'
    Bread.findById(req.params.id)
    .then(foundBread => {
+    const bakedBy = foundBread.getBakedBy()
+    console.log(bakedBy)
     res.render('show', {
         bread:foundBread
     })
