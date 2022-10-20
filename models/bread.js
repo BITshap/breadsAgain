@@ -7,8 +7,8 @@ const breadSchema = new Schema ({
   image: {type: String, default: 'https://static01.nyt.com/images/2013/03/03/magazine/03wmt1/03wmt1-articleLarge-v2.jpg?quality=75&auto=webp&disable=upscale'},
   ingredients: ['flour ', 'water ', 'yeast.'],
   baker: {
-    type: String,
-    enum: ['Rachel', 'Monica', 'Joey', 'Chandler', 'Ross', 'Phoebe']
+    type: Schema.Types.ObjectId,
+    ref: 'Baker'
   }
 })
 breadSchema.methods.getBakedBy = function(){
