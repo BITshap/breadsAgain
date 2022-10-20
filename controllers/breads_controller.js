@@ -5,6 +5,7 @@ const Baker = require('../models/baker')
 
 breads.get('/', (req, res) => {
     Bread.find()
+    .populate('baker')
     .then(foundBread => {
             res.render('index', {
                 breads: foundBread,
@@ -23,27 +24,32 @@ breads.get('/new', (req, res) => {
 })
 
 breads.get('/:id/edit', (req, res) => {
-    Bread.findById(req.params.id)
-    .then(foundBread => {
+    Baker.find()
+    .then(foundBakers => {
+        Bread.findById(req.params.id)
+        .then(foundBread => {
         res.render('edit', {
-            bread: foundBread
+            bread: foundBread,
+            bakers: foundBakers
+            })
         })
-    })
+    })   
 })
 
-breads.get('/:id', (req,res) => {    //might be '/:arrayIndex'
-   Bread.findById(req.params.id)
-   .then(foundBread => {
-    const bakedBy = foundBread.getBakedBy()
-    console.log(bakedBy)
-    res.render('show', {
-        bread:foundBread
-    })
-    })
-    .catch(err => {
-        res.render('404')
-   })
-})
+// SHOW
+breads.get('/:id', (req, res) => {
+    Bread.findById(req.params.id)
+    .populate('baker')
+        .then(foundBread => {
+          res.render('show', {
+              bread: foundBread
+          })
+        })
+        .catch(err => {
+          res.send('404')
+        })
+  })
+  
 
 
 

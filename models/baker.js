@@ -13,5 +13,5 @@ const bakerSchema = new mongoose.Schema({
     bio: String
 })
 
-const Baker = mongoose.model('Baker', bakerSchema)
+const Baker = mongoose.model('baker', bakerSchema)
 module.exports = Baker
