@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const baker = require('../controllers/bakers_controller')
+const Bread = require('./bread')
 
 const bakerSchema = new mongoose.Schema({
     name: {
@@ -13,5 +15,11 @@ const bakerSchema = new mongoose.Schema({
     bio: String
 })
 
-const Baker = mongoose.model('baker', bakerSchema)
+bakerSchema.virtual('breads', {
+    ref: 'Bread',
+    localField: '_id',
+    foreignField: 'baker'
+})
+
+const Baker = mongoose.model('Baker', bakerSchema)
 module.exports = Baker

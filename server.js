@@ -21,17 +21,21 @@ app.use(methodOverride('_method'))
 app.get('/', (req, res) => {
     res.send('Wecome to an Awesome App about Breads!')
 })
-
+// bakers 
+const bakersController = require('./controllers/bakers_controller.js')
+app.use('/bakers', bakersController)
+// breads
 const breadsController = require('./controllers/breads_controller.js')
 app.use('/breads', breadsController)
 
-const bakersController = require('./controllers/bakers_controller')
-app.use('/bakers', bakersController)
+
+
+// 404 Page
+app.get('*', (req, res) => {
+  res.send('404')
+})
+
 
 app.listen(PORT, () => {
     console.log('listening on port', PORT);
-})
-
-app.get('*', (req,res) => {
-    res.send('404')
 })
