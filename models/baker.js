@@ -15,6 +15,14 @@ const bakerSchema = new mongoose.Schema({
     bio: String
 })
 
+bakerSchema.post('findOneAndDelete', function(){
+    Bread.deleteMany({baker: this._conditions._id})
+    .then(deleteStatus => {
+        console.log(deleteStatus)
+    })
+
+})
+
 bakerSchema.virtual('breads', {
     ref: 'Bread',
     localField: '_id',

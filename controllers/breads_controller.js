@@ -3,21 +3,17 @@ const breads = express.Router()
 const Bread = require('../models/bread.js')
 const Baker = require('../models/baker.js')
 
-breads.get('/', (req, res) => {
-    Baker.find()
-    .then(foundBakers => {
-        Bread.find()
-        .populate('baker')
-
-        .then(foundBread => {
-            res.render('index', {
-                breads: foundBread,
-                bakers: foundBakers,
-                title: 'Index Page'
-            })
-        })
+breads.get('/', async (req, res) => {
+    const foundBakers = await Baker.find().lean()
+    const foundBreads = await Bread.find().populate('baker').limit(2)
+    console.log(foundBreads)
+    res.render('index', {
+      breads: foundBreads,
+      bakers: foundBakers,
+      title: 'Index Page'
     })
-})
+  })
+  
 
 breads.get('/new', (req, res) => {
     Baker.find()
@@ -92,6 +88,8 @@ breads.post('/', (req, res) => {
     Bread.create(req.body)
     res.redirect('/breads')
 })
+
+
 
 breads.get('/data/seed', (req, res) => {
     Bread.insertMany([
